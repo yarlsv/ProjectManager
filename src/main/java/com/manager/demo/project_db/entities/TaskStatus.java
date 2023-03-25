@@ -1,5 +1,5 @@
-package com.manager.demo.project_db;
+package com.manager.demo.project_db.entities;
 
 public enum TaskStatus {
-    NEW, PROGRESS, DONE;
+    NEW, PROGRESS, DONE
 }
