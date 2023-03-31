@@ -1,9 +1,26 @@
+server:
+  port: 8080
+
 spring:
   datasource:
     driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:projectdb
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
 
-server:
-  port: 8080
+  flyway:
+    url: jdbc:h2:mem:projectdb
+    user: sa
+    password: password
+#    schemas: public
+#    baseline-version: 1
+    baseline-on-migrate: true
+    validate-on-migrate: false
+
 springdoc:
   show-actuator: true
   use-management-port: false
@@ -21,3 +38,6 @@ jwt:
   header: Authorization
   secretKey: project
   jwtExpiration: 645004
+logging:
+#  level:
+#    root: debug
