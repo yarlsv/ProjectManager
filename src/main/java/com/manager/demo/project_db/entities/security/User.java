@@ -12,6 +12,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
     @Column(name = "email")
     private String email;
     @Column(name = "firstName")
@@ -36,4 +38,5 @@ public class User {
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
     private Status status;
+
 }

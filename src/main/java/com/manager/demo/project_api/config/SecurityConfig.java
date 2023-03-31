@@ -1,7 +1,6 @@
 package com.manager.demo.project_api.config;
 
 import com.manager.demo.project_impl.security.JwtTokenFilter;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public JwtTokenFilter getJwtTokenFilter() {
@@ -59,7 +58,7 @@ public class SecurityConfig {
                 .authenticated();
 
         http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore((Filter) getJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(getJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
