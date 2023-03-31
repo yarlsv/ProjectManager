@@ -16,3 +16,8 @@ springdoc:
     operations-sorter: method
   default-consumes-media-type: 'application/json'
   default-produces-media-type: 'application/json'
+
+jwt:
+  header: Authorization
+  secretKey: project
+  jwtExpiration: 645004
