@@ -5,6 +5,7 @@ import com.manager.demo.project_api.dto.MessageResponse;
 import com.manager.demo.project_api.dto.SignupRequestDto;
 import com.manager.demo.project_api.service.AuthService;
 import com.manager.demo.project_db.entities.security.Role;
+import com.manager.demo.project_db.entities.security.Status;
 import com.manager.demo.project_db.entities.security.User;
 import com.manager.demo.project_db.repositories.UserRepository;
 import com.manager.demo.project_impl.mapper.UserMapper;
@@ -66,6 +67,7 @@ public class AuthServiceImpl implements AuthService {
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setId(UUID.randomUUID());
+        user.setStatus(Status.ACTIVE);
 
         userRepository.save(user);
 

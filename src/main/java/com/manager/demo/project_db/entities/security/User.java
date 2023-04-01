@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -23,8 +22,6 @@ public class User {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
     @Column(name = "email")
     private String email;

@@ -3,19 +3,18 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:projectdb
-    username: sa
-    password: password
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
 
   flyway:
-    url: jdbc:h2:mem:projectdb
-    user: sa
-    password: password
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: 12345
 #    schemas: public
 #    baseline-version: 1
     baseline-on-migrate: true
