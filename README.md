@@ -3,6 +3,6 @@
 Приложение "Проектный менеджер"
 
 Java11
-DataBase: H2
+DataBase: Postgres
 Доступ к базе данных: JPA
 Сборка: Maven
