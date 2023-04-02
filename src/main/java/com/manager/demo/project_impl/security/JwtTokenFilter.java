@@ -30,25 +30,40 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        try {
-            String jwt = parseJwt(request);
-            if(jwt != null && jwtUtils.validateToken(jwt)) {
-                String username = jwtUtils.getUsername(jwt);
 
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
+        response.addHeader("Access-Control-Expose-Headers", "xsrf-token");
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+        if ("OPTIONS".equals(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            try {
+                String jwt = parseJwt(request);
+                if(jwt != null && jwtUtils.validateToken(jwt)) {
+                    String username = jwtUtils.getUsername(jwt);
+
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (JwtAuthenticationException e) {
+                SecurityContextHolder.clearContext();
+                response.sendError(e.getHttpStatus().value());
+                throw new JwtAuthenticationException("JWT token is expired or invalid " +
+                        "1. getPathInfo: " + request.getPathInfo() +
+                        " 2. getRequestURI: " + request.getRequestURI() +
+                        " 3. getRequestURL " + request.getRequestURL());
             }
-        } catch (JwtAuthenticationException e) {
-            SecurityContextHolder.clearContext();
-            response.sendError(e.getHttpStatus().value());
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+
+            filterChain.doFilter(request, response);
         }
 
-        filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {

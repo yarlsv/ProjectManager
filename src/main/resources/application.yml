@@ -27,7 +27,7 @@ springdoc:
     path: "/api-docs"
   swagger-ui:
     groups-order: desc
-    path: "/swagger-ui"
+    path: "/swagger-ui.html"
     disable-swagger-default-url: true
     operations-sorter: method
   default-consumes-media-type: 'application/json'

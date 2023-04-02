@@ -25,6 +25,17 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
 
+    private static String[] whiteList = {
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/api-docs/**",
+            "/v2/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/configuration/**",
+            "/webjars/**"
+    };
+
     @Bean
     public JwtTokenFilter getJwtTokenFilter() {
         return new JwtTokenFilter();
@@ -51,11 +62,12 @@ public class SecurityConfig {
                 .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeHttpRequests()
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/api/v1/auth/**").permitAll()
-                .anyRequest()
-                .authenticated();
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers(whiteList).permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/api/v1/auth/**").permitAll()
+                                .anyRequest()
+                                .authenticated());
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(getJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
