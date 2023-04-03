@@ -15,4 +15,5 @@ public class TaskDto {
     private LocalDate creationDate;
     private LocalDate changeStatusDate;
     private String information;
+    private UUID projectId;
 }

@@ -119,6 +119,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(changeTaskDto.getId()));
         task.setName(changeTaskDto.getName());
         task.setInformation(changeTaskDto.getInformation());
+        task.setProjectId(changeTaskDto.getProjectID());
 
         log.info("Changing the task with id = {} was successful", changeTaskDto.getId());
         return taskMapper.toTaskDto(task);

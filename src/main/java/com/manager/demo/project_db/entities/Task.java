@@ -40,7 +40,6 @@ public class Task {
     private LocalDate changeStatusDate;
     @Column(name = "information", nullable = false)
     private String information;
-
     @Column(name = "project_id")
     private UUID projectId;
 

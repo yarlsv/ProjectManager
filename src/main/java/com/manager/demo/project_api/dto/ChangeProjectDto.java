@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class ChangeTaskDto {
+public class ChangeProjectDto {
+
     private UUID id;
     private String name;
-    private String information;
-    private UUID projectID;
+    private String description;
 }
