@@ -1,8 +1,14 @@
-# ProjectManager
+# Project Manager
 
-Приложение "Проектный менеджер"
+Приложение "Проектный менеджер", которое позволяет создавать проект и добавлять в него задачи.
 
-Java11
-DataBase: Postgres
-Доступ к базе данных: JPA
-Сборка: Maven
+Приложение написано на Java 17, дополнительно были использованы следующие инструменты, библиотеки:
+Maven
+SpringBoot Framework 
+RESTapi
+Spring Data JPA
+Mockito Junit
+Lombok 
+JWT
+Swagger
+Mapstruct
