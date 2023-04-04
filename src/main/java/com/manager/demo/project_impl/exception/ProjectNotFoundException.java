@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.UUID;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class TaskNotFoundException extends RuntimeException {
+public class ProjectNotFoundException extends RuntimeException {
 
-    public TaskNotFoundException(UUID id) {
-        super(String.format("Not found a task with id = %s", id));
+    public ProjectNotFoundException(UUID id) {
+        super(String.format("Not found a project with id = %s", id));
     }
 }

@@ -26,7 +26,7 @@ public interface ProjectController {
     @PutMapping
     @Operation(summary = "Change a project",
         description = "change a project")
-    ProjectDto changeProject(ChangeProjectDto changeProjectDto);
+    void changeProject(ChangeProjectDto changeProjectDto);
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a project by id",
