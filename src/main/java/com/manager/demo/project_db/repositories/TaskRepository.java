@@ -15,5 +15,9 @@ public interface TaskRepository extends CrudRepository<Task, UUID> {
     List<Task> findByStatuses(List<TaskStatus> statuses);
 
     List<Task> findByProjectId(UUID id);
-    List<Task> findByProjectIdAndStatusContaining(UUID projectId, List<TaskStatus> statuses);
+
+    @Query(value = "select t from Task t " +
+        "where t.projectId = :projectId " +
+        "and t.status in (:statuses)")
+    List<Task> findByProjectIdAndStatuses(UUID projectId, List<TaskStatus> statuses);
 }

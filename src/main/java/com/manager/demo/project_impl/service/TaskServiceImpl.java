@@ -92,7 +92,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> getAllTaskByProjectIdAndTaskStatuses(UUID projectId, List<TaskStatus> status) {
-        List<Task> taskList = taskRepository.findByProjectIdAndStatusContaining(projectId, status);
+        List<Task> taskList = taskRepository.findByProjectIdAndStatuses(projectId, status);
 
         log.info("Getting tasks with project id = {} and statuses = {} was successful", projectId, status.toString());
         return taskList.stream()
