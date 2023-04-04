@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Project Controller", description = "Work with Project")
@@ -36,5 +37,10 @@ public interface ProjectController {
     @Operation(summary = "Get a project by task id",
             description = "Get a project by task id")
     ProjectDto getProjectByTaskId(UUID taskId);
+
+    @GetMapping("/allProjects")
+    @Operation(summary = "Get all projects",
+        description = "Get all projects")
+    List<ProjectDto> getAllProjects();
 
 }

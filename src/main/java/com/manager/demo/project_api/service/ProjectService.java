@@ -4,6 +4,7 @@ import com.manager.demo.project_api.dto.ChangeProjectDto;
 import com.manager.demo.project_api.dto.CreateProjectDto;
 import com.manager.demo.project_api.dto.ProjectDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ProjectService {
@@ -12,4 +13,5 @@ public interface ProjectService {
     void changeProject(ChangeProjectDto changeProjectDto);
     ProjectDto getProjectById(UUID projectId);
     ProjectDto getProjectByTaskId(UUID taskId);
+    List<ProjectDto> getAllProjects();
 }

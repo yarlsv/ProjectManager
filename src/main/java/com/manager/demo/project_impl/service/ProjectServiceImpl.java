@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -59,5 +60,15 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto getProjectByTaskId(UUID taskId) {
         return projectMapper.toProjectDto(projectRepository.findByTaskId(taskId)
                 .orElseThrow(() -> new TaskNotFoundException(taskId)));
+    }
+
+    @Override
+    public List<ProjectDto> getAllProjects() {
+        List<Project> projectList = (List<Project>) projectRepository.findAll();
+
+        log.info("Getting all project was successful");
+        return projectList.stream()
+                .map(projectMapper::toProjectDto)
+                .toList();
     }
 }

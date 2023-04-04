@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 import static com.manager.demo.project_impl.security.SecurityUtil.ADMIN;
@@ -52,5 +53,13 @@ public class ProjectControllerImpl implements ProjectController {
         log.info("Getting a project with task id = {}", taskId);
 
         return projectService.getProjectByTaskId(taskId);
+    }
+
+    @Override
+//    @PreAuthorize(ADMIN_AND_USER)
+    public List<ProjectDto> getAllProjects() {
+        log.info("Getting all projects");
+
+        return projectService.getAllProjects();
     }
 }
