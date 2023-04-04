@@ -6,19 +6,21 @@ import com.manager.demo.project_api.dto.CreateTaskDto;
 import com.manager.demo.project_api.dto.TaskDto;
 import com.manager.demo.project_api.service.TaskService;
 import com.manager.demo.project_db.entities.TaskStatus;
-import com.manager.demo.project_db.repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
 
+import static com.manager.demo.project_impl.security.SecurityUtil.ADMIN_AND_USER;
+
 @RequiredArgsConstructor
+@PreAuthorize(ADMIN_AND_USER)
 @RestController
 @Slf4j
 public class TaskControllerImpl implements TaskController {
-    private final TaskRepository taskRepository;
 
     private final TaskService taskService;
 
