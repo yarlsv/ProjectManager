@@ -7,14 +7,10 @@ import com.manager.demo.project_api.dto.ProjectDto;
 import com.manager.demo.project_api.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
-
-import static com.manager.demo.project_impl.security.SecurityUtil.ADMIN;
-import static com.manager.demo.project_impl.security.SecurityUtil.ADMIN_AND_USER;
 
 @RestController
 @Slf4j
@@ -24,7 +20,6 @@ public class ProjectControllerImpl implements ProjectController {
     private final ProjectService projectService;
 
     @Override
-    @PreAuthorize(ADMIN)
     public ProjectDto createProject(CreateProjectDto createProjectDto) {
         log.info("Creating a project {}", createProjectDto.getName());
 
@@ -32,7 +27,6 @@ public class ProjectControllerImpl implements ProjectController {
     }
 
     @Override
-    @PreAuthorize(ADMIN)
     public void changeProject(ChangeProjectDto changeProjectDto) {
         log.info("Changing a project with id = {}", changeProjectDto.getId());
 
@@ -40,7 +34,6 @@ public class ProjectControllerImpl implements ProjectController {
     }
 
     @Override
-    @PreAuthorize(ADMIN_AND_USER)
     public ProjectDto getProjectById(UUID projectId) {
         log.info("Getting a project with id = {}", projectId);
 
@@ -48,7 +41,6 @@ public class ProjectControllerImpl implements ProjectController {
     }
 
     @Override
-    @PreAuthorize(ADMIN_AND_USER)
     public ProjectDto getProjectByTaskId(UUID taskId) {
         log.info("Getting a project with task id = {}", taskId);
 
@@ -56,7 +48,6 @@ public class ProjectControllerImpl implements ProjectController {
     }
 
     @Override
-//    @PreAuthorize(ADMIN_AND_USER)
     public List<ProjectDto> getAllProjects() {
         log.info("Getting all projects");
 

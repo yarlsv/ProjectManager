@@ -5,6 +5,7 @@ import com.manager.demo.project_api.dto.CreateTaskDto;
 import com.manager.demo.project_api.dto.TaskDto;
 import com.manager.demo.project_db.entities.TaskStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Tag(name = "Task Controller", description = "Work with Task")
 @RequestMapping(value = "/api/v1/task")
 @Validated
+@SecurityRequirement(name = "Bearer Authentication")
 public interface TaskController {
 
     @Operation(summary = "Create new task",

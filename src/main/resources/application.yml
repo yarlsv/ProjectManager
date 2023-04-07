@@ -38,5 +38,5 @@ jwt:
   secretKey: project
   jwtExpiration: 645004
 logging:
-#  level:
-#    root: debug
+  level:
+    root: debug

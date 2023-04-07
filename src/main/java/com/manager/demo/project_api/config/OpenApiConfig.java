@@ -15,10 +15,4 @@ import org.springframework.context.annotation.Configuration;
         scheme = "bearer")
 public class OpenApiConfig {
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return web -> web.ignoring()
-//                .requestMatchers("/swagger-ui.html");
-//    }
-
 }
