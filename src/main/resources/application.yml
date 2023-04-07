@@ -37,6 +37,3 @@ jwt:
   header: Authorization
   secretKey: project
   jwtExpiration: 645004
-logging:
-  level:
-    root: debug

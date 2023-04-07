@@ -21,16 +21,12 @@ public class JwtUtils {
     @Value("${jwt.jwtExpiration}")
     private int expiration;
 
-    public String generateToken(String username, String role) {
-        Claims claims = Jwts.claims().setSubject(username);
-        claims.put("role", role);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + expiration * 1000);
+    public String generateToken(String username) {
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(new Date().getTime() + expiration * 1000L))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
