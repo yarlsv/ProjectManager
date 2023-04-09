@@ -31,11 +31,11 @@ public interface ProjectController {
     @Operation(summary = "Create new project",
         description = "create new project")
     @PreAuthorize(ADMIN)
-    ProjectDto createProject(@RequestBody CreateProjectDto createProjectDto);
+    ProjectDto createProject(@Validated @RequestBody CreateProjectDto createProjectDto);
     @PutMapping
     @Operation(summary = "Change a project",
         description = "change a project")
-    void changeProject(@RequestBody ChangeProjectDto changeProjectDto);
+    void changeProject(@Validated @RequestBody ChangeProjectDto changeProjectDto);
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a project by id",
