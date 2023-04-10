@@ -9,6 +9,7 @@ import com.manager.demo.project_db.entities.TaskStatus;
 import com.manager.demo.project_db.repositories.TaskRepository;
 import com.manager.demo.project_impl.exception.TaskNotFoundException;
 import com.manager.demo.project_impl.mapper.TaskMapper;
+import com.manager.demo.project_impl.validation.ProjectValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,15 +26,20 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final ProjectValidator projectValidator;
 
     @Override
     @Transactional
     public TaskDto createTask(CreateTaskDto createTaskDto) {
 
+        if(createTaskDto.getProjectId() != null) {
+            projectValidator.validate(createTaskDto.getProjectId());
+        }
+
         Task task = taskMapper.toTask(createTaskDto);
         task.setCreationDate(LocalDate.now());
         task.setStatus(TaskStatus.NEW);
-        task.setChangeStatusDate(null);
+        task.setChangeStatusDate(LocalDate.now());
 
         taskRepository.save(task);
 

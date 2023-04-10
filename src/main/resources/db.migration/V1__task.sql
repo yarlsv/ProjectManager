@@ -6,5 +6,8 @@ CREATE TABLE IF NOT EXISTS task
     creation_date       DATE                            NOT NULL,
     change_status_date  DATE                            NOT NULL,
     information         VARCHAR                         NOT NULL,
-    CONSTRAINT pk_task PRIMARY KEY (id)
+    project_id          uuid
+
+    CONSTRAINT pk_task PRIMARY KEY (id),
+    FOREIGN KEY (project_id) REFERENCES project(id)
 );

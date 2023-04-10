@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +41,7 @@ public interface ProjectController {
     @GetMapping("/{id}")
     @Operation(summary = "Get a project by id",
         description = "get a project by project id")
-    ProjectDto getProjectById(UUID projectId);
+    ProjectDto getProjectById(@PathVariable ("id") UUID projectId);
     @GetMapping("/getByTaskId")
     @Operation(summary = "Get a project by task id",
             description = "Get a project by task id")
