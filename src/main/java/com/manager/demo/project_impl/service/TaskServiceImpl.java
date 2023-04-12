@@ -77,10 +77,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> getTasksByStatus(List<TaskStatus> statusList) {
-        List<Task> list = taskRepository.findByStatuses(statusList);
+    public List<TaskDto> getTasksByStatus(TaskStatus status) {
+        List<Task> list = taskRepository.findByStatus(status);
 
-        log.info("Getting a task by status: {} was successful", statusList.toString());
+        log.info("Getting a task by status: {} was successful", status.toString());
         return list.stream()
                 .map(taskMapper::toTaskDto)
                 .toList();
@@ -97,8 +97,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> getAllTaskByProjectIdAndTaskStatuses(UUID projectId, List<TaskStatus> status) {
-        List<Task> taskList = taskRepository.findByProjectIdAndStatuses(projectId, status);
+    public List<TaskDto> getAllTaskByProjectIdAndTaskStatus(UUID projectId, TaskStatus status) {
+        List<Task> taskList = taskRepository.findByProjectIdAndStatus(projectId, status);
 
         log.info("Getting tasks with project id = {} and statuses = {} was successful", projectId, status.toString());
         return taskList.stream()

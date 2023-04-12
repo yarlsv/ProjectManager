@@ -16,10 +16,10 @@ public interface TaskService {
 
     TaskDto getTaskById(UUID taskId);
 
-    List<TaskDto> getTasksByStatus(List<TaskStatus> statusList);
+    List<TaskDto> getTasksByStatus(TaskStatus status);
     List<TaskDto> getAllTaskByProjectId(UUID projectId);
 
-    List<TaskDto> getAllTaskByProjectIdAndTaskStatuses(UUID projectId, List<TaskStatus> status);
+    List<TaskDto> getAllTaskByProjectIdAndTaskStatus(UUID projectId, TaskStatus status);
 
     TaskDto changeTaskStatus(UUID taskId, TaskStatus status);
 

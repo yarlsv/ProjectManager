@@ -11,13 +11,13 @@ import java.util.UUID;
 public interface TaskRepository extends CrudRepository<Task, UUID> {
 
     @Query(value = "select t from Task t " +
-        "where t.status IN (:statuses)")
-    List<Task> findByStatuses(List<TaskStatus> statuses);
+        "where t.status = :status")
+    List<Task> findByStatus(TaskStatus status);
 
     List<Task> findByProjectId(UUID id);
 
     @Query(value = "select t from Task t " +
         "where t.projectId = :projectId " +
-        "and t.status in (:statuses)")
-    List<Task> findByProjectIdAndStatuses(UUID projectId, List<TaskStatus> statuses);
+        "and t.status = :status")
+    List<Task> findByProjectIdAndStatus(UUID projectId, TaskStatus status);
 }

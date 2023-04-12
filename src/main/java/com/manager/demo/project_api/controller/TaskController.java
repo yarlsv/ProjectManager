@@ -5,6 +5,7 @@ import com.manager.demo.project_api.dto.CreateTaskDto;
 import com.manager.demo.project_api.dto.TaskDto;
 import com.manager.demo.project_db.entities.TaskStatus;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.UUID;
+
+import static com.manager.demo.project_api.utility.OpenApiConstants.EXAMPLE_UUID;
 
 @Tag(name = "Task Controller", description = "Work with Task")
 @RequestMapping(value = "/api/v1/task")
@@ -37,12 +40,14 @@ public interface TaskController {
     void deleteTask(UUID taskId);
 
     @Operation(summary = "Get task by id")
-    @GetMapping
-    TaskDto getTaskById(UUID taskId);
+    @GetMapping("{id}")
+    TaskDto getTaskById(
+            @Schema(example = EXAMPLE_UUID)
+            @PathVariable("id") @Validated UUID taskId);
 
-    @Operation(summary = "Get task by task statuses")
+    @Operation(summary = "Get task by task status")
     @GetMapping("/getByStatus")
-    List<TaskDto> getTasksByStatus(List<TaskStatus> statusList);
+    List<TaskDto> getTasksByStatus(@RequestBody TaskStatus status);
 
     @Operation(summary = "Get all tasks by project id")
     @GetMapping("/getAllTasksByProjectId")
@@ -52,9 +57,9 @@ public interface TaskController {
     @GetMapping("/all")
     List<TaskDto> getAllTasks();
 
-    @Operation(summary = "Get task by project id and task statuses")
+    @Operation(summary = "Get task by project id and task status")
     @GetMapping("/getTasksByIdAndStatuses")
-    List<TaskDto> getAllTaskByProjectIdAndTaskStatuses(UUID projectId, List<TaskStatus> status);
+    List<TaskDto> getAllTaskByProjectIdAndTaskStatus(UUID projectId, TaskStatus status);
 
     @Operation(summary = "Change task status by id")
     @PatchMapping("/{id}/changeStatus")

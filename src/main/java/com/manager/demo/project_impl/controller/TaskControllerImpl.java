@@ -49,9 +49,9 @@ public class TaskControllerImpl implements TaskController {
     }
 
     @Override
-    public List<TaskDto> getTasksByStatus(List<TaskStatus> statusList) {
-        log.info("Getting tasks with statuses: {}", statusList.toString());
-        return taskService.getTasksByStatus(statusList);
+    public List<TaskDto> getTasksByStatus(TaskStatus status) {
+        log.info("Getting tasks with status: {}", status.toString());
+        return taskService.getTasksByStatus(status);
     }
 
     @Override
@@ -61,9 +61,9 @@ public class TaskControllerImpl implements TaskController {
     }
 
     @Override
-    public List<TaskDto> getAllTaskByProjectIdAndTaskStatuses(UUID projectId, List<TaskStatus> status) {
-        log.info("Getting tasks with project id:{} and statuses: {}", projectId, status.toString());
-        return taskService.getAllTaskByProjectIdAndTaskStatuses(projectId, status);
+    public List<TaskDto> getAllTaskByProjectIdAndTaskStatus(UUID projectId, TaskStatus status) {
+        log.info("Getting tasks with project id:{} and status: {}", projectId, status.toString());
+        return taskService.getAllTaskByProjectIdAndTaskStatus(projectId, status);
     }
 
     @Override
