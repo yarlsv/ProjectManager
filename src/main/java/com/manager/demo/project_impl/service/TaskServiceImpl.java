@@ -4,9 +4,12 @@ import com.manager.demo.project_api.dto.ChangeTaskDto;
 import com.manager.demo.project_api.dto.CreateTaskDto;
 import com.manager.demo.project_api.dto.TaskDto;
 import com.manager.demo.project_api.service.TaskService;
+import com.manager.demo.project_db.entities.Project;
 import com.manager.demo.project_db.entities.Task;
 import com.manager.demo.project_db.entities.TaskStatus;
+import com.manager.demo.project_db.repositories.ProjectRepository;
 import com.manager.demo.project_db.repositories.TaskRepository;
+import com.manager.demo.project_impl.exception.ProjectNotFoundException;
 import com.manager.demo.project_impl.exception.TaskNotFoundException;
 import com.manager.demo.project_impl.mapper.TaskMapper;
 import com.manager.demo.project_impl.validation.ProjectValidator;
@@ -25,6 +28,7 @@ import java.util.UUID;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final ProjectRepository projectRepository;
     private final TaskMapper taskMapper;
     private final ProjectValidator projectValidator;
 
@@ -41,6 +45,11 @@ public class TaskServiceImpl implements TaskService {
         task.setStatus(TaskStatus.NEW);
         task.setChangeStatusDate(LocalDate.now());
 
+        Project project = projectRepository.findById(createTaskDto.getProjectId())
+                .orElseThrow(() -> new ProjectNotFoundException(createTaskDto.getProjectId()));
+        project.getTaskList().add(task);
+
+        projectRepository.save(project);
         taskRepository.save(task);
 
         log.info("Task was successfully created");
@@ -125,7 +134,10 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new TaskNotFoundException(changeTaskDto.getId()));
         task.setName(changeTaskDto.getName());
         task.setInformation(changeTaskDto.getInformation());
-        task.setProjectId(changeTaskDto.getProjectID());
+
+        if(changeTaskDto.getProjectID() != null) {
+            task.setProjectId(projectRepository.findById(changeTaskDto.getProjectID()).get().getId());
+        }
 
         log.info("Changing the task with id = {} was successful", changeTaskDto.getId());
         return taskMapper.toTaskDto(task);

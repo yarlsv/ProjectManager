@@ -10,8 +10,10 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapperConfig.class)
 public interface TaskMapper {
 
+    @Mapping(target = "projectId", source = "projectId")
     Task toTask(CreateTaskDto createTaskDto);
 
     @Mapping(target = "taskStatus", source = "status")
+    @Mapping(target = "projectId", source = "projectId")
     TaskDto toTaskDto(Task task);
 }

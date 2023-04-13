@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,8 +37,8 @@ public interface TaskController {
 
     @Operation(summary = "Delete a task",
         description = "Delete a task by id")
-    @DeleteMapping
-    void deleteTask(UUID taskId);
+    @DeleteMapping("{id}")
+    void deleteTask(@PathVariable("id") UUID taskId);
 
     @Operation(summary = "Get task by id")
     @GetMapping("{id}")
@@ -47,11 +48,12 @@ public interface TaskController {
 
     @Operation(summary = "Get task by task status")
     @GetMapping("/getByStatus")
-    List<TaskDto> getTasksByStatus(@RequestBody TaskStatus status);
+    List<TaskDto> getTasksByStatus(
+            @RequestParam @RequestBody TaskStatus status);
 
     @Operation(summary = "Get all tasks by project id")
     @GetMapping("/getAllTasksByProjectId")
-    List<TaskDto> getAllTaskByProjectId(UUID projectId);
+    List<TaskDto> getAllTaskByProjectId(@RequestParam UUID projectId);
 
     @Operation(summary = "Get all task")
     @GetMapping("/all")
@@ -59,7 +61,7 @@ public interface TaskController {
 
     @Operation(summary = "Get task by project id and task status")
     @GetMapping("/getTasksByIdAndStatuses")
-    List<TaskDto> getAllTaskByProjectIdAndTaskStatus(UUID projectId, TaskStatus status);
+    List<TaskDto> getAllTaskByProjectIdAndTaskStatus(@RequestParam UUID projectId, @RequestParam TaskStatus status);
 
     @Operation(summary = "Change task status by id")
     @PatchMapping("/{id}/changeStatus")
