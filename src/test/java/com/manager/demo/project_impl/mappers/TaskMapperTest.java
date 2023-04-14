@@ -7,7 +7,7 @@ import com.manager.demo.project_impl.mapper.TaskMapperImpl;
 import org.junit.jupiter.api.Test;
 
 import static com.manager.demo.project_impl.util.TaskUnitTestGenerator.createTask;
-import static com.manager.demo.project_impl.util.TaskUnitTestGenerator.createTaskDto;
+import static com.manager.demo.project_impl.util.TaskUnitTestGenerator.createCreateTaskDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskMapperTest {
@@ -16,7 +16,7 @@ class TaskMapperTest {
 
     @Test
     void whenToTask_andOk() {
-        CreateTaskDto createTaskDto = createTaskDto();
+        CreateTaskDto createTaskDto = createCreateTaskDto();
         var result = taskMapper.toTask(createTaskDto);
 
         assertEquals(result.getName(), createTaskDto.getName());

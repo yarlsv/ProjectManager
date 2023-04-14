@@ -7,7 +7,7 @@ import com.manager.demo.project_impl.mapper.ProjectMapperImpl;
 import org.junit.jupiter.api.Test;
 
 import static com.manager.demo.project_impl.util.ProjectUnitTestGenerator.createProject;
-import static com.manager.demo.project_impl.util.ProjectUnitTestGenerator.createProjectDto;
+import static com.manager.demo.project_impl.util.ProjectUnitTestGenerator.createCreateProjectDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProjectMapperTest {
@@ -16,7 +16,7 @@ class ProjectMapperTest {
 
     @Test
     void whenToProject_andOk() {
-        CreateProjectDto createProjectDto = createProjectDto();
+        CreateProjectDto createProjectDto = createCreateProjectDto();
         var result = projectMapper.toProject(createProjectDto);
 
         assertEquals(result.getName(), createProjectDto.getName());
